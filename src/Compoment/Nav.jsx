@@ -100,35 +100,36 @@ const Navbar = () => {
 >
   <Link
     to="/"
-    className="text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded"
+    className="block w-full text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded px-4 py-3"
   >
     Home
   </Link>
   <Link
     to="/menu"
-    className="text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded"
+    className="block w-full text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded px-4 py-3"
   >
     Menu
   </Link>
   <Link
     to="/about"
-    className="text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded"
+    className="block w-full text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded px-4 py-3"
   >
     About
   </Link>
   <Link
     to="/contact"
-    className="text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded"
+    className="block w-full text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded px-4 py-3"
   >
     Contact
   </Link>
   <Link
     to="/login"
-    className="text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded"
+    className="block w-full text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded px-4 py-3"
   >
     Login
   </Link>
 </div>
+
 
 
     </nav>
