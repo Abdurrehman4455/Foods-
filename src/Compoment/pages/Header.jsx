@@ -1,5 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+
+const MotionLink = motion(Link);
 
 const Header = () => {
   return (
@@ -22,7 +25,7 @@ const Header = () => {
       >
         <motion.h1
           className="text-4xl md:text-5xl font-extrabold mb-4"
-          style={{ color: "white" }} // keep text white for "Savor Every Bite at"
+          style={{ color: "white" }}
           initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.5 }}
@@ -32,7 +35,7 @@ const Header = () => {
             className="text-yellow-300"
             initial={{ color: "#FBBF24" }}
             animate={{
-              color: ["#FBBF24", "#F59E0B", "#FBBF24"], // yellow shades as original
+              color: ["#FBBF24", "#F59E0B", "#FBBF24"],
             }}
             transition={{ duration: 3, repeat: Infinity, repeatType: "loop" }}
           >
@@ -42,7 +45,7 @@ const Header = () => {
 
         <motion.p
           className="text-lg mb-6 max-w-md"
-          style={{ color: "white" }} // keep paragraph text white
+          style={{ color: "white" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
@@ -51,15 +54,15 @@ const Header = () => {
         </motion.p>
 
         <div className="flex space-x-4">
-          <motion.a
-            href="/menu"
+          <MotionLink
+            to="/menu"
             className="bg-yellow-300 text-orange-800 font-semibold py-2 px-6 rounded shadow hover:bg-yellow-400"
             whileHover={{ scale: 1.1, boxShadow: "0 0 8px #FBBF24" }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
             View Menu
-          </motion.a>
+          </MotionLink>
 
           <motion.a
             href="/order"

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-
-const MotionLink = motion(Link);
+import { Link } from "react-router-dom";  // Import Link from react-router-dom
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,119 +8,107 @@ const Navbar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // Close the mobile menu when the screen size is resized to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
-        setIsMobileMenuOpen(false);
+        setIsMobileMenuOpen(false); // Close the mobile menu on larger screens
       }
     };
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
-    <nav className="bg-orange-600 p-4 shadow-md fixed w-full top-0 z-50">
+    <nav className="bg-orange-600 p-4 shadow-md">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
-        {/* Logo with fade-in */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <Link
-            to="/"
-            className="text-white text-2xl font-extrabold hover:text-yellow-400 select-none"
-          >
-            <span className="font-semibold">Foodie</span>{" "}
-            <span className="text-yellow-400">Delight</span>
+        {/* Logo */}
+        <div className="flex items-center space-x-4">
+          <Link to="/" className="text-white text-2xl font-extrabold hover:text-yellow-400">
+            <span className="font-semibold">Foodie</span> <span className="text-yellow-400">Delight</span>
           </Link>
-        </motion.div>
+        </div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
-          {["Menu", "About", "Contact"].map((item) => (
-            <MotionLink
-              key={item}
-              to={`/${item.toLowerCase()}`}
-              className="text-white text-lg hover:text-yellow-400 cursor-pointer"
-              whileHover={{ scale: 1.1 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              {item}
-            </MotionLink>
-          ))}
+         
+          <Link to="/menu" className="text-white text-lg hover:text-yellow-400">
+            Menu
+          </Link>
+          <Link to="/about" className="text-white text-lg hover:text-yellow-400">
+            About
+          </Link>
+          <Link to="/contact" className="text-white text-lg hover:text-yellow-400">
+            Contact
+          </Link>
+          <Link to="/login" className="text-white text-lg hover:text-yellow-400">
+          Login
+          </Link>
         </div>
 
         {/* Mobile Menu Icon (Hamburger Button) */}
         <div className="md:hidden">
-          <motion.button
+          <button
             onClick={toggleMobileMenu}
-            className="text-white text-2xl focus:outline-none"
-            whileTap={{ scale: 0.9 }}
-            aria-label="Toggle menu"
+            className="text-white text-2xl"
           >
-            <motion.svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="w-8 h-8"
-              animate={{ rotate: isMobileMenuOpen ? 45 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {isMobileMenuOpen ? (
-                <motion.path
+            {/* Hamburger icon or close icon (SVGs) */}
+            {isMobileMenuOpen ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-2 h-2"
+              >
+                <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M6 18L18 6M6 6l12 12"
                 />
-              ) : (
-                <motion.path
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-8 h-8"
+              >
+                <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M4 6h16M4 12h16M4 18h16"
                 />
-              )}
-            </motion.svg>
-          </motion.button>
+              </svg>
+            )}
+          </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            className="md:hidden bg-green-700 overflow-hidden"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            <div className="p-4 space-y-4 flex flex-col">
-              {[
-                { name: "Home", path: "/" },
-                { name: "Menu", path: "/menu" },
-                { name: "About", path: "/about" },
-                { name: "Contact", path: "/contact" },
-              ].map(({ name, path }) => (
-                <MotionLink
-                  key={name}
-                  to={path}
-                  className="text-white text-lg hover:text-yellow-400"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  {name}
-                </MotionLink>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden`}>
+        <div className="bg-green-700 p-4 space-y-4">
+          <Link to="/" className="text-white text-lg hover:text-yellow-400">
+            Home
+          </Link>
+          <Link to="/menu" className="text-white text-lg hover:text-yellow-400">
+            Menu
+          </Link>
+          <Link to="/about" className="text-white text-lg hover:text-yellow-400">
+            About
+          </Link>
+          <Link to="/contact" className="text-white text-lg hover:text-yellow-400">
+            Contact
+          </Link>
+          
+        </div>
+      </div>
     </nav>
   );
 };
