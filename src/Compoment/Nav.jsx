@@ -92,23 +92,43 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden`}>
-        <div className="bg-green-700 p-4 space-y-4">
-          <Link to="/" className="text-white text-lg hover:text-yellow-400">
-            Home
-          </Link>
-          <Link to="/menu" className="text-white text-lg hover:text-yellow-400">
-            Menu
-          </Link>
-          <Link to="/about" className="text-white text-lg hover:text-yellow-400">
-            About
-          </Link>
-          <Link to="/contact" className="text-white text-lg hover:text-yellow-400">
-            Contact
-          </Link>
-          
-        </div>
-      </div>
+     <div
+  className={`${
+    isMobileMenuOpen ? 'block' : 'hidden'
+  } md:hidden bg-green-700 p-6 space-y-6 rounded-b-lg shadow-lg transition-all duration-300 ease-in-out`}
+>
+  <Link
+    to="/"
+    className="text-white text-lg font-medium hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded"
+  >
+    Home
+  </Link>
+  <Link
+    to="/menu"
+    className="text-white text-lg font-medium hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded"
+  >
+    Menu
+  </Link>
+  <Link
+    to="/about"
+    className="text-white text-lg font-medium hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded"
+  >
+    About
+  </Link>
+  <Link
+    to="/contact"
+    className="text-white text-lg font-medium hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded"
+  >
+    Contact
+  </Link>
+  <Link
+    to="/login"
+    className="text-white text-lg font-medium hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded"
+  >
+    Login
+  </Link>
+</div>
+
     </nav>
   );
 };
