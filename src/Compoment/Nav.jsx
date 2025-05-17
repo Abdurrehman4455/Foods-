@@ -92,42 +92,44 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-     <div
+    <div
   className={`${
     isMobileMenuOpen ? 'block' : 'hidden'
-  } md:hidden bg-green-700 p-6 space-y-6 rounded-b-lg shadow-lg transition-all duration-300 ease-in-out`}
+  } md:hidden p-6 space-y-6 rounded-b-lg shadow-lg transition-all duration-300 ease-in-out
+    bg-gradient-to-br from-orange-500 via-yellow-400 to-yellow-300`}
 >
   <Link
     to="/"
-    className="text-white text-lg font-medium hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded"
+    className="text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded"
   >
     Home
   </Link>
   <Link
     to="/menu"
-    className="text-white text-lg font-medium hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded"
+    className="text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded"
   >
     Menu
   </Link>
   <Link
     to="/about"
-    className="text-white text-lg font-medium hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded"
+    className="text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded"
   >
     About
   </Link>
   <Link
     to="/contact"
-    className="text-white text-lg font-medium hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded"
+    className="text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded"
   >
     Contact
   </Link>
   <Link
     to="/login"
-    className="text-white text-lg font-medium hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded"
+    className="text-white text-lg font-medium hover:text-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 rounded"
   >
     Login
   </Link>
 </div>
+
 
     </nav>
   );
