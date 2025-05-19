@@ -22,44 +22,53 @@ const categories = [
 
 const sidebarVariants = {
   hidden: {
-    x: "-100%",
+    x: "-110%",
     opacity: 0,
-    scale: 0.95,
-    transition: { type: "spring", stiffness: 300, damping: 30, duration: 0.25 },
+    transition: { duration: 0.25, ease: "easeInOut" },
+    boxShadow: "none",
   },
   visible: {
     x: 0,
     opacity: 1,
-    scale: 1,
     transition: {
       type: "spring",
-      stiffness: 120,
-      damping: 20,
+      stiffness: 260,
+      damping: 30,
       when: "beforeChildren",
-      staggerChildren: 0.05,
-      duration: 0.25,
+      staggerChildren: 0.07,
     },
+    boxShadow: "0 0 15px 2px rgba(255, 255, 255, 0.3)",
   },
   exit: {
-    x: "-100%",
+    x: "-110%",
     opacity: 0,
-    scale: 0.95,
-    transition: { type: "spring", stiffness: 300, damping: 30, duration: 0.25 },
+    transition: { duration: 0.25, ease: "easeInOut" },
+    boxShadow: "none",
   },
 };
 
 const overlayVariants = {
-  hidden: { opacity: 0, backdropFilter: "blur(0px)" },
-  visible: { opacity: 0.85, backdropFilter: "blur(4px)", transition: { duration: 0.25 } },
-  exit: { opacity: 0, backdropFilter: "blur(0px)", transition: { duration: 0.25 } },
+  hidden: { opacity: 0, backdropFilter: "blur(0px)", transition: { duration: 0.3 } },
+  visible: { opacity: 0.85, backdropFilter: "blur(6px)", transition: { duration: 0.3 } },
+  exit: { opacity: 0, backdropFilter: "blur(0px)", transition: { duration: 0.3 } },
+};
+
+const categoryButtonVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { type: "spring", stiffness: 300, damping: 25 },
+  },
 };
 
 const navLinkHover = {
-  scale: 1.1,
-  color: "#facc15",
-  textShadow: "0 0 20px #facc15, 0 0 30px #facc15",
-  filter: "drop-shadow(0 0 10px #facc15)",
-  transition: { duration: 0.15, ease: "linear" },
+  scale: 1.12,
+  rotateX: 7,
+  rotateY: -7,
+  textShadow: "0 0 12px rgba(255, 255, 255, 0.8)",
+  filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))",
+  transition: { duration: 0.25, ease: "easeInOut" },
 };
 
 const Nav = () => {
@@ -78,7 +87,7 @@ const Nav = () => {
     const snapIndex = Math.round(scrollTop / itemHeight);
     sliderRef.current.scrollTo({
       top: snapIndex * itemHeight,
-      behavior: "auto", // instant scroll, no smooth delay
+      behavior: "auto",
     });
   };
 
@@ -101,18 +110,21 @@ const Nav = () => {
               className="text-white focus:outline-none p-1 rounded hover:bg-gray-800 transition duration-150"
             >
               {sidebarOpen ? (
-                <FiX size={28} className="text-yellow-400" />
+                <FiX size={28} className="text-white" />
               ) : (
-                <FiMenu size={28} />
+                <FiMenu size={28} className="text-white" />
               )}
             </button>
-            <Link
+            <MotionLink
               to="/"
-              className="text-2xl sm:text-3xl font-extrabold cursor-pointer select-none tracking-wide hover:text-yellow-400 transition duration-150 ease-linear whitespace-nowrap"
+              className="text-2xl sm:text-3xl font-extrabold cursor-pointer select-none tracking-wide transition duration-150 ease-linear whitespace-nowrap"
               style={{ userSelect: "none" }}
+              whileHover={navLinkHover}
+              whileTap={{ scale: 0.95, rotateX: 0, rotateY: 0 }}
+              transition={{ duration: 0.25 }}
             >
               TeeStore
-            </Link>
+            </MotionLink>
           </div>
 
           {/* Center: Search Bar — only on md+ */}
@@ -124,7 +136,7 @@ const Nav = () => {
               <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
                 <FiSearch
                   size={22}
-                  className="text-gray-600 group-focus-within:text-yellow-400 transition-colors duration-150"
+                  className="text-gray-400 group-focus-within:text-white transition-colors duration-150"
                 />
               </div>
               <motion.input
@@ -132,17 +144,17 @@ const Nav = () => {
                 type="search"
                 name="search"
                 placeholder="Search products..."
-                className="w-full bg-white border border-gray-300 rounded-full py-3 pl-14 pr-5
-                 text-black placeholder-gray-500
-                 focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:border-yellow-400
+                className="w-full bg-black border border-gray-700 rounded-full py-3 pl-14 pr-5
+                 text-white placeholder-gray-500
+                 focus:outline-none focus:ring-4 focus:ring-white focus:border-white
                  transition duration-150 ease-linear
-                 hover:bg-white
+                 hover:bg-black
                  focus:scale-105 text-sm sm:text-base"
                 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500 }}
                 whileHover={{ scale: 1.03 }}
                 whileFocus={{
                   scale: 1.05,
-                  boxShadow: "0 0 20px #facc15, 0 0 30px #facc15",
+                  boxShadow: "0 0 12px rgba(255,255,255,0.8)",
                 }}
                 transition={{ duration: 0.15, ease: "linear" }}
               />
@@ -156,8 +168,8 @@ const Nav = () => {
               className="relative flex items-center space-x-1 text-white select-none"
               aria-label="Cart"
               whileHover={navLinkHover}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.15, ease: "linear" }}
+              whileTap={{ scale: 0.95, rotateX: 0, rotateY: 0 }}
+              transition={{ duration: 0.25 }}
             >
               <FiShoppingCart size={24} />
               <span className="hidden sm:inline">Cart</span>
@@ -165,7 +177,7 @@ const Nav = () => {
                 <motion.span
                   animate={{ scale: [1, 1.3, 1] }}
                   transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-                  className="absolute -top-2 -right-3 bg-yellow-400 text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
+                  className="absolute -top-2 -right-3 bg-white text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
                 >
                   {cartItemCount}
                 </motion.span>
@@ -177,8 +189,8 @@ const Nav = () => {
               className="flex items-center space-x-1 text-white select-none"
               aria-label="Login"
               whileHover={navLinkHover}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.15, ease: "linear" }}
+              whileTap={{ scale: 0.95, rotateX: 0, rotateY: 0 }}
+              transition={{ duration: 0.25 }}
             >
               <FiUser size={22} />
               <span className="hidden sm:inline">Login</span>
@@ -189,8 +201,8 @@ const Nav = () => {
               className="flex items-center space-x-1 text-white select-none"
               aria-label="Register"
               whileHover={navLinkHover}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.15, ease: "linear" }}
+              whileTap={{ scale: 0.95, rotateX: 0, rotateY: 0 }}
+              transition={{ duration: 0.25 }}
             >
               <FiUser size={22} />
               <span className="hidden sm:inline">Register</span>
@@ -204,16 +216,22 @@ const Nav = () => {
             <motion.div
               key={cat}
               className="relative cursor-pointer text-white font-semibold px-2 py-1 select-none"
-              whileHover={{ scale: 1.1, color: "#facc15" }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.15, ease: "linear" }}
+              whileHover={{
+                scale: 1.1,
+                rotateX: 7,
+                rotateY: -7,
+                textShadow: "0 0 12px rgba(255, 255, 255, 0.8)",
+                filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))",
+              }}
+              whileTap={{ scale: 0.95, rotateX: 0, rotateY: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
             >
               <a href={`#${cat.toLowerCase()}`} className="relative z-10">
                 {cat}
               </a>
               {/* Underline */}
               <motion.span
-                className="absolute bottom-0 left-0 h-1 bg-yellow-400 rounded"
+                className="absolute bottom-0 left-0 h-1 bg-white rounded"
                 variants={{
                   hidden: { width: 0, opacity: 0 },
                   visible: { width: "100%", opacity: 1, transition: { duration: 0.15, ease: "linear" } },
@@ -237,8 +255,7 @@ const Nav = () => {
               exit="exit"
               variants={overlayVariants}
               onClick={toggleSidebar}
-              className="fixed inset-0 bg-black bg-opacity-80 z-40 backdrop-blur-sm"
-              transition={{ duration: 0.25 }}
+              className="fixed inset-0 bg-black bg-opacity-85 z-40 backdrop-blur-sm"
             />
             {/* Sidebar */}
             <motion.aside
@@ -246,15 +263,17 @@ const Nav = () => {
               animate="visible"
               exit="exit"
               variants={sidebarVariants}
-              className="fixed top-0 left-0 bottom-0 w-72 sm:w-64 p-6 sm:p-10 flex flex-col z-50 bg-black text-white shadow-2xl"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
-              transition={{ duration: 0.25 }}
+              className="fixed top-0 left-0 bottom-0 w-72 sm:w-64 p-6 sm:p-10 flex flex-col z-50 bg-black text-white shadow-xl"
+              style={{
+                fontFamily: "'Poppins', sans-serif",
+                boxShadow: sidebarOpen ? "0 0 15px 2px rgba(255, 255, 255, 0.3)" : "none",
+              }}
             >
               <motion.button
                 onClick={toggleSidebar}
                 aria-label="Close menu"
-                className="self-end mb-6 focus:outline-none text-white hover:text-yellow-400 rounded-full p-2"
-                whileHover={{ scale: 1.4, color: "#facc15", rotate: 15 }}
+                className="self-end mb-6 focus:outline-none text-white hover:text-gray-300 rounded-full p-2"
+                whileHover={{ scale: 1.3, rotate: 15 }}
                 whileTap={{ scale: 0.9, rotate: 0 }}
                 transition={{ type: "spring", stiffness: 500, damping: 15, duration: 0.15 }}
               >
@@ -270,7 +289,7 @@ const Nav = () => {
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <FiSearch
                       size={20}
-                      className="text-gray-400 group-focus-within:text-yellow-400 transition-colors duration-150"
+                      className="text-gray-400 group-focus-within:text-gray-200 transition-colors duration-150"
                     />
                   </div>
                   <motion.input
@@ -278,17 +297,17 @@ const Nav = () => {
                     type="search"
                     name="search"
                     placeholder="Search products..."
-                    className="w-full bg-white border border-gray-300 rounded-full py-2 pl-10 pr-4
-                     text-black placeholder-gray-500
-                     focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:border-yellow-400
+                    className="w-full bg-black border border-gray-700 rounded-full py-2 pl-10 pr-4
+                     text-white placeholder-gray-500
+                     focus:outline-none focus:ring-4 focus:ring-gray-300 focus:border-gray-300
                      transition duration-150 ease-linear
-                     hover:bg-white
+                     hover:bg-black
                      focus:scale-105 text-base"
                     style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500 }}
                     whileHover={{ scale: 1.03 }}
                     whileFocus={{
                       scale: 1.05,
-                      boxShadow: "0 0 20px #facc15, 0 0 30px #facc15",
+                      boxShadow: "0 0 12px rgba(255,255,255,0.8)",
                     }}
                     transition={{ duration: 0.15, ease: "linear" }}
                   />
@@ -304,8 +323,9 @@ const Nav = () => {
                 onDragEnd={handleDragEnd}
                 className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-200px)] pr-2"
                 style={{
-                  scrollbarWidth: "none",
-                  msOverflowStyle: "none",
+                  scrollbarWidth: "thin",
+                  scrollbarColor: "rgba(255, 255, 255, 0.5) transparent",
+                  perspective: 800,
                 }}
               >
                 {categories.map((cat, idx) => {
@@ -317,16 +337,29 @@ const Nav = () => {
                         setSelectedCategory(idx);
                         toggleSidebar();
                       }}
+                      variants={categoryButtonVariants}
+                      initial="hidden"
+                      animate="visible"
+                      whileHover={{
+                        scale: 1.05,
+                        rotateX: 7,
+                        rotateY: -7,
+                        backgroundColor: selected ? "#fff" : "#000",
+                        color: selected ? "#000" : "#fff",
+                        boxShadow: "0 0 10px rgba(255, 255, 255, 0.6)",
+                        transition: { duration: 0.3, ease: "easeOut" },
+                      }}
+                      whileTap={{ scale: 0.95, rotateX: 0, rotateY: 0 }}
                       className={`cursor-pointer rounded-md border ${
-                        selected ? "border-yellow-400 bg-yellow-400 text-black shadow-lg" : "border-white bg-black text-white"
+                        selected
+                          ? "border-white bg-white text-black shadow-md"
+                          : "border-white bg-black text-white"
                       } py-3 px-6 font-semibold select-none
-                                 focus:outline-none focus:ring-2 focus:ring-yellow-400
-                                 hover:bg-yellow-400 hover:text-black transition`}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                                 focus:outline-none focus:ring-2 focus:ring-white
+                                 transition`}
                       tabIndex={0}
                       type="button"
-                      transition={{ duration: 0.15, ease: "linear" }}
+                      style={{ transformStyle: "preserve-3d" }}
                     >
                       {cat}
                     </motion.button>
@@ -340,6 +373,23 @@ const Nav = () => {
 
       {/* Push page content down so it's not hidden by fixed navbar */}
       <div className="pt-16 sm:pt-28" />
+
+      {/* Custom scrollbar styles */}
+      <style>{`
+        /* Webkit scrollbar */
+        .flex-col::-webkit-scrollbar {
+          width: 8px;
+        }
+        .flex-col::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .flex-col::-webkit-scrollbar-thumb {
+          background-color: rgba(255, 255, 255, 0.5);
+          border-radius: 10px;
+          border: 2px solid transparent;
+          background-clip: content-box;
+        }
+      `}</style>
     </>
   );
 };
