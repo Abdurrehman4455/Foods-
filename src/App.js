@@ -6,13 +6,23 @@ import Menu from './Compoment/pages/Menu';
 import Contact from './Compoment/pages/Contact';
 import About from './Compoment/pages/About';
 import Login from './Compoment/pages/Login';
+import Hero from './Compoment/pages/Hero'; // Correct the import
+import FeaturedProductsSlider from './Compoment/pages/Featureproduct';
 
 function App() {
   return (
     <Router>
-      <Navbar /> {/* Navbar placed outside Routes so it shows on all pages */}
+      <Navbar /> {/* Navbar shows on all pages */}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Hero />  {/* Hero shows only on home */}
+              <FeaturedProductsSlider/>
+            </>
+          }
+        />
         <Route path="/menu" element={<Menu />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
