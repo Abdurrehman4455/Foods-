@@ -15,7 +15,7 @@ const products = [
   { id: 10, name: "Trendy Watch", price: "$159", image: "https://via.placeholder.com/300x400?text=Trendy+Watch" },
 ];
 
-// Animation variants for sliding effect
+// Animation variants (same as before)
 const variants = {
   enter: (direction) => ({
     x: direction > 0 ? 400 : -400,
@@ -31,6 +31,30 @@ const variants = {
   }),
 };
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const cardEntranceVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 120,
+      damping: 15,
+    },
+  },
+};
+
 const FeaturedProductsSlider = () => {
   const [[page, direction], setPage] = useState([0, 0]);
 
@@ -41,7 +65,6 @@ const FeaturedProductsSlider = () => {
     ]);
   };
 
-  // Show 10 products at a time (adjust as needed)
   const visibleCount = 10;
   const startIndex = page;
   const displayedProducts = [];
@@ -58,21 +81,34 @@ const FeaturedProductsSlider = () => {
         <button
           onClick={() => paginate(-1)}
           aria-label="Previous"
-          className="z-20 p-3 bg-black text-white rounded-full hover:bg-yellow-400 hover:text-black shadow-lg transition transform hover:scale-110 active:scale-95 absolute left-0 top-1/2 transform -translate-y-1/2"
+          className="
+            z-20 p-3 sm:p-4 bg-black text-white rounded-full 
+            hover:bg-yellow-400 hover:text-black shadow-lg 
+            transition transform hover:scale-110 active:scale-95 
+            absolute top-1/2 -translate-y-1/2 left-2 sm:left-4
+            touch-manipulation
+            w-10 h-10 sm:w-12 sm:h-12
+            flex items-center justify-center
+          "
         >
           ‹
         </button>
 
-        {/* Grid container for the product cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 overflow-hidden mx-4 flex-grow">
+        {/* Grid container with entrance animation */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 overflow-hidden mx-4 flex-grow"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <AnimatePresence initial={false} custom={direction}>
             {displayedProducts.map((product) => (
               <motion.div
                 key={product.id}
                 custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
+                variants={{ ...variants, ...cardEntranceVariants }}
+                initial="hidden"
+                animate="visible"
                 exit="exit"
                 transition={{
                   type: "spring",
@@ -80,34 +116,47 @@ const FeaturedProductsSlider = () => {
                   damping: 30,
                   ease: "easeOut",
                 }}
-                className="relative rounded-xl bg-gray-50 cursor-pointer select-none shadow-lg overflow-hidden flex flex-col transition-all duration-300"
+                className="relative rounded-xl bg-gray-50 cursor-pointer select-none shadow-md overflow-hidden flex flex-col transition-all duration-300"
+                whileHover={{ scale: 1.04, boxShadow: "0 8px 20px rgba(250, 204, 21, 0.4)" }}
+                whileTap={{ scale: 0.95 }}
               >
-                {/* Product Image */}
-                <motion.img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-56 object-cover transition-transform duration-300 ease-in-out transform hover:scale-105"
-                />
-                <div className="p-4 flex-grow">
-                  <h3 className="text-lg font-semibold mb-2 text-center">{product.name}</h3>
+                {/* Square image container */}
+                <div className="relative w-full pt-[100%] overflow-hidden rounded-t-xl">
+                  <motion.img
+                    src={product.image}
+                    alt={product.name}
+                    className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-300 ease-in-out transform"
+                    whileHover={{ scale: 1.1 }}
+                  />
+                </div>
+                <div className="p-5 flex-grow flex flex-col justify-center">
+                  <h3 className="text-lg font-semibold mb-1 text-center">{product.name}</h3>
                   <p className="text-yellow-500 font-bold text-lg text-center">{product.price}</p>
                 </div>
 
-                {/* Hover effect overlay */}
+                {/* Overlay on hover */}
                 <motion.div
-                  className="absolute inset-0 bg-black opacity-0 hover:opacity-40 transition-opacity duration-300 ease-in-out"
-                  whileHover={{ opacity: 0.6 }}
+                  className="absolute inset-0 bg-black opacity-0 hover:opacity-30 transition-opacity duration-300 ease-in-out"
+                  whileHover={{ opacity: 0.3 }}
                 />
               </motion.div>
             ))}
           </AnimatePresence>
-        </div>
+        </motion.div>
 
         {/* Next button */}
         <button
           onClick={() => paginate(1)}
           aria-label="Next"
-          className="z-20 p-3 bg-black text-white rounded-full hover:bg-yellow-400 hover:text-black shadow-lg transition transform hover:scale-110 active:scale-95 absolute right-0 top-1/2 transform -translate-y-1/2"
+          className="
+            z-20 p-3 sm:p-4 bg-black text-white rounded-full 
+            hover:bg-yellow-400 hover:text-black shadow-lg 
+            transition transform hover:scale-110 active:scale-95 
+            absolute top-1/2 -translate-y-1/2 right-2 sm:right-4
+            touch-manipulation
+            w-10 h-10 sm:w-12 sm:h-12
+            flex items-center justify-center
+          "
         >
           ›
         </button>

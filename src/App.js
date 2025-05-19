@@ -1,13 +1,14 @@
-import React from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './Compoment/Nav';
-import Home from './Compoment/pages/Home';
-import Menu from './Compoment/pages/Menu';
-import Contact from './Compoment/pages/Contact';
-import About from './Compoment/pages/About';
-import Login from './Compoment/pages/Login';
-import Hero from './Compoment/pages/Hero'; // Correct the import
-import FeaturedProductsSlider from './Compoment/pages/Featureproduct';
+import React from "react";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./Compoment/Nav";
+import Home from "./Compoment/pages/Home";
+import Menu from "./Compoment/pages/Menu";
+import Contact from "./Compoment/pages/Contact";
+import About from "./Compoment/pages/About";
+import Login from "./Compoment/pages/Login";
+import Hero from "./Compoment/pages/Hero";
+import FeaturedProductsSlider from "./Compoment/pages/Featureproduct";
+import ShopByCategory from "./Compoment/pages/ShopByCategory";  // <-- Import here
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
           path="/"
           element={
             <>
-              <Hero />  {/* Hero shows only on home */}
-              <FeaturedProductsSlider/>
+              <Hero />
+              <FeaturedProductsSlider />
+              <ShopByCategory /> {/* <-- Add ShopByCategory here */}
             </>
           }
         />
